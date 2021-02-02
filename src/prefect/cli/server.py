@@ -463,7 +463,30 @@ def create_tenant(name, slug):
         --name, -n       TEXT    The name of a tenant to create
         --slug, -n       TEXT    The slug of a tenant to create
     """
-    client = prefect.Client()
-    tenant_id = client.create_tenant(name=name, slug=slug)
-
-    click.secho(f"Tenant created with ID: {tenant_id}", fg="green")
+    # client = prefect.Client()
+    # if not client.get_available_tenants():
+    #     tenant_id = client.create_tenant(name=name, slug=slug)
+    #     click.secho(f"Tenant created with ID: {tenant_id}", fg="green")
+    # print(ascii_welcome())
+    started = False
+    with prefect.utilities.configuration.set_temporary_config(
+        {
+            "cloud.api": "http://localhost:4200",
+            "cloud.graphql": "http://localhost:4200/graphql",
+            "backend": "server",
+        }
+    ):
+        while not started:
+            try:
+                client = prefect.Client()
+                client.graphql("query{hello}", retry_on_api_error=False)
+                started = True
+                # Create a default tenant if no tenant exists
+                if not client.get_available_tenants():
+                    client.create_tenant(name="default")
+                print(ascii_welcome())
+            except Exception:
+                time.sleep(0.5)
+                pass
+        while True:
+            time.sleep(0.5)

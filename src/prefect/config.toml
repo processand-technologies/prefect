@@ -4,7 +4,7 @@ debug = false
 # base configuration directory (typically you won't change this!)
 home_dir = "~/.prefect"
 
-backend = "cloud"
+backend = "server"
 
 [server]
 host = "http://localhost"
