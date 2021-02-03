@@ -50,37 +50,36 @@ endpoint = "${server.host}:${server.port}"
     [server.telemetry]
     enabled = true
 
-# [cloud]
-# api = "${${backend}.endpoint}"
-# endpoint = "https://api.prefect.io"
-# graphql = "${cloud.api}/graphql"
-# use_local_secrets = true
-# heartbeat_interval = 30.0
-# check_cancellation_interval = 15.0
-# diagnostics = false
-# 
-# # rate at which to batch upload logs
-# logging_heartbeat = 5
-# 
-# queue_interval = 30.0
-# 
-#     [cloud.agent]
-#     name = "agent"
-#     labels = "[]"
-# 
-#     # Set to `DEBUG` for verbose logging
-#     level = "INFO"
-# 
-#     # Agents require different API tokens
-#     auth_token = ""
-# 
-#     # Internal address for agent health checks, etc...
-#     agent_address = ""
-# 
-#         [cloud.agent.resource_manager]
-#         # Separate loop interval for resource managers
-#         loop_interval = 60
+[cloud]
+api = "${${backend}.endpoint}"
+endpoint = "https://api.prefect.io"
+graphql = "${cloud.api}/graphql"
+use_local_secrets = true
+heartbeat_interval = 30.0
+check_cancellation_interval = 15.0
+diagnostics = false
 
+# rate at which to batch upload logs
+logging_heartbeat = 5
+
+queue_interval = 30.0
+
+    [cloud.agent]
+    name = "agent"
+    labels = "[]"
+
+    # Set to `DEBUG` for verbose logging
+    level = "INFO"
+
+    # Agents require different API tokens
+    auth_token = ""
+
+    # Internal address for agent health checks, etc...
+    agent_address = ""
+
+        [cloud.agent.resource_manager]
+        # Separate loop interval for resource managers
+        loop_interval = 60
 
 [logging]
 # The logging level: NOTSET, DEBUG, INFO, WARNING, ERROR, or CRITICAL
