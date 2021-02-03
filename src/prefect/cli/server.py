@@ -471,8 +471,8 @@ def create_tenant(name, slug):
     started = False
     with prefect.utilities.configuration.set_temporary_config(
         {
-            "cloud.api": "http://localhost:4200",
-            "cloud.graphql": "http://localhost:4200/graphql",
+            "cloud.api": "http://apollo:4200",
+            "cloud.graphql": "http://apollo:4200/graphql",
             "backend": "server",
         }
     ):

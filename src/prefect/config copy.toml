@@ -7,31 +7,31 @@ home_dir = "~/.prefect"
 backend = "server"
 
 [server]
-host = "http://apollo"
+host = "http://localhost"
 port = "4200"
 host_port = "4200"
 endpoint = "${server.host}:${server.port}"
 
     [server.database]
-    host = "postgres"
+    host = "localhost"
     port = "5432"
     host_port = "5432"
     name = "prefect_server"
     username = "prefect"
     # set to "" to generate a random password each time the database starts
-    password = "h8rH45uTfVTjVXpxdTDmfMEpwUK7gxDedFPY"
+    password = "test-password"
     connection_url = "postgresql://${server.database.username}:${server.database.password}@${server.database.host}:${server.database.port}/${server.database.name}"
     volume_path = "${home_dir}/pg_data"
 
     [server.graphql]
-    host = "graphql"
+    host = "0.0.0.0"
     port = "4201"
     host_port = "4201"
     debug = false
     path = "/graphql/"
 
     [server.hasura]
-    host = "hasura"
+    host = "localhost"
     port = "3000"
     host_port = "3000"
     admin_secret = "" # a string. One will be automatically generated if not provided.
@@ -41,45 +41,45 @@ endpoint = "${server.host}:${server.port}"
     execute_retry_seconds = 10
 
     [server.ui]
-    host = "http://ui"
+    host = "http://localhost"
     port = "8080"
     host_port = "8080"
     endpoint = "${server.ui.host}:${server.ui.port}"
-    apollo_url = "http://ui:4200/graphql"
+    apollo_url = "http://localhost:4200/graphql"
 
     [server.telemetry]
     enabled = true
 
-# [cloud]
-# api = "${${backend}.endpoint}"
-# endpoint = "https://api.prefect.io"
-# graphql = "${cloud.api}/graphql"
-# use_local_secrets = true
-# heartbeat_interval = 30.0
-# check_cancellation_interval = 15.0
-# diagnostics = false
-# 
-# # rate at which to batch upload logs
-# logging_heartbeat = 5
-# 
-# queue_interval = 30.0
-# 
-#     [cloud.agent]
-#     name = "agent"
-#     labels = "[]"
-# 
-#     # Set to `DEBUG` for verbose logging
-#     level = "INFO"
-# 
-#     # Agents require different API tokens
-#     auth_token = ""
-# 
-#     # Internal address for agent health checks, etc...
-#     agent_address = ""
-# 
-#         [cloud.agent.resource_manager]
-#         # Separate loop interval for resource managers
-#         loop_interval = 60
+[cloud]
+api = "${${backend}.endpoint}"
+endpoint = "https://api.prefect.io"
+graphql = "${cloud.api}/graphql"
+use_local_secrets = true
+heartbeat_interval = 30.0
+check_cancellation_interval = 15.0
+diagnostics = false
+
+# rate at which to batch upload logs
+logging_heartbeat = 5
+
+queue_interval = 30.0
+
+    [cloud.agent]
+    name = "agent"
+    labels = "[]"
+
+    # Set to `DEBUG` for verbose logging
+    level = "INFO"
+
+    # Agents require different API tokens
+    auth_token = ""
+
+    # Internal address for agent health checks, etc...
+    agent_address = ""
+
+        [cloud.agent.resource_manager]
+        # Separate loop interval for resource managers
+        loop_interval = 60
 
 
 [logging]
